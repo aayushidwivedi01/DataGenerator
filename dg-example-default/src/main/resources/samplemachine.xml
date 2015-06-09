@@ -27,7 +27,7 @@
     <state id="step1">
         <onentry>
             <!-- Example of using 'set' from 'dg:assign'  -->
-            <dg:assign name="var_1_1" set="A1,B1,C1"/>
+            <dg:assign name="var_1_1" set="A1,B1"/>
 
             <!-- Example of using 'range'  -->
             <dg:range name="var_1_2" from="0" to="4" step="1"/>
@@ -70,11 +70,15 @@
 
             <!-- Example of using '%number' from equivalence class generation  -->
             <assign name="var_2_6" expr="%number(5,2)"/>
-
+            <dg:range name="count" from="0" to="100" step="1"/>
         </onentry>
-        <transition event="end" target="end"/>
-    </state>
 
-    <state id="end" />
-</scxml>
+        <!--          <transition event="end" target="end"/>-->
+        <transition event="end"  target="end"/>
+            </state>
+
+
+
+            <state id="end" />
+        </scxml>
 

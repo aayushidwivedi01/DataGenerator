@@ -38,6 +38,7 @@ public class CSVFileWriter implements DataWriter {
      * @throws IOException if the output file can not be opened for writing
      */
     public CSVFileWriter(final String csvFile) throws IOException {
+
         this.csvFile = new CSVWriter(new FileWriter(csvFile), ',');
     }
 
@@ -46,9 +47,10 @@ public class CSVFileWriter implements DataWriter {
      *
      * @param cr data pipe with search results
      */
+
     public void writeOutput(DataPipe cr) {
         String[] nextLine = new String[cr.getDataMap().entrySet().size()];
-
+        System.out.println("Writing Output");
         int count = 0;
         for (Map.Entry<String, String> entry : cr.getDataMap().entrySet()) {
             nextLine[count] = entry.getValue();
@@ -63,6 +65,7 @@ public class CSVFileWriter implements DataWriter {
      */
     public void closeCSVFile() {
         try {
+            //System.out.println("Closing File");
             csvFile.close();
         } catch (IOException e) {
             System.out.println("ERROR! Failed to close csv file");

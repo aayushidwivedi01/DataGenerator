@@ -117,9 +117,8 @@ public class DataConsumer {
         return hardExitFlag;
     }
 
-    public long getMaxNumberOfLines() {
-        return this.maxNumberOfLines;
-    }
+   public long getMaxNumberOfLines() {  return this.maxNumberOfLines;
+     }
 
     public String getReportingHost() {
         return this.reportingHost;

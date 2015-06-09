@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.finra.datagenerator.samples;
+
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,6 +34,8 @@ import org.finra.datagenerator.engine.scxml.tags.CustomTagExtension;
 import org.finra.datagenerator.engine.scxml.tags.InLineTransformerExtension;
 import org.finra.datagenerator.samples.transformer.SampleMachineTransformer;
 import org.finra.datagenerator.writer.DefaultWriter;
+
+
 
 /**
  * Driver for a simple Data Generator example using the Default Distributor and a single transformer.
@@ -61,7 +65,8 @@ public final class CmdLine {
         Engine engine = new SCXMLEngine(cte);
 
         //will default to samplemachine, but you could specify a different file if you choose to
-        InputStream is = CmdLine.class.getResourceAsStream("/" + (args.length == 0 ? "samplemachine" : args[0]) + ".xml");
+        InputStream is = CmdLine.class.getResourceAsStream("/" + (args.length == 0 ? "logRegMachine" : args[0]) + ".xml");
+       // InputStream is = CmdLine.class.getResourceAsStream("/" + (args.length == 0 ? "sample" : args[0]) + ".xml");
 
         engine.setModelByInputFileStream(is);
 
@@ -71,18 +76,24 @@ public final class CmdLine {
         //Prepare the consumer with the proper writer and transformer
         DataConsumer consumer = new DataConsumer();
         consumer.addDataTransformer(new SampleMachineTransformer());
-
+        consumer.setMaxNumberOfLines(1000);
         //Adding custom equivalence class generation transformer - NOTE this will get applied post data generation.
         //MODEL USAGE EXAMPLE: <dg:assign name="var_out_V2" set="%regex([0-9]{3}[A-Z0-9]{5})"/>
         consumer.addDataTransformer(new EquivalenceClassTransformer());
 
-        consumer.addDataWriter(new DefaultWriter(System.out,
-                new String[]{"var_1_1", "var_1_2", "var_1_3", "var_1_4", "var_1_5", "var_1_6",
-                             "var_2_1", "var_2_2", "var_2_3", "var_2_4", "var_2_5", "var_2_6"}));
+      // consumer.addDataWriter(new DefaultWriter(System.out,
+             // new String[]{"var_1_1", "var_1_2", "var_1_3", "var_1_4", "var_1_5", "var_1_6",
+                  //    "var_2_1", "var_2_2", "var_2_3", "var_2_4", "var_2_5", "var_2_6"}));
 
+       //consumer.addDataWriter(new DefaultWriter(System.out,
+              //new String[]{ "var_out_V1", "var_out_V2","var_out_V3", "var_out_V4", "var_out_V5", "var_out_V7", "var_out_V8", "var_label"}));
+
+        consumer.addDataWriter(new DefaultWriter(System.out,
+                new String[]{ "var_out_V1","var_out_V2"}));
         //Prepare the distributor
         DefaultDistributor defaultDistributor = new DefaultDistributor();
         defaultDistributor.setThreadCount(1);
+        //defaultDistributor.setMaxNumberOfLines(10);
         defaultDistributor.setDataConsumer(consumer);
         Logger.getLogger("org.apache").setLevel(Level.WARN);
 

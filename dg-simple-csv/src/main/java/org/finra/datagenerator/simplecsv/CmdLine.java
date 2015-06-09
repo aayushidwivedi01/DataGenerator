@@ -16,6 +16,7 @@
 package org.finra.datagenerator.simplecsv;
 
 import org.finra.datagenerator.consumer.DataConsumer;
+import org.finra.datagenerator.consumer.DataTransformer;
 import org.finra.datagenerator.distributor.multithreaded.DefaultDistributor;
 import org.finra.datagenerator.engine.scxml.SCXMLEngine;
 import org.finra.datagenerator.simplecsv.writer.CSVFileWriter;
@@ -23,6 +24,7 @@ import org.finra.datagenerator.simplecsv.writer.CSVFileWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+;
 
 /**
  * Marshall Peters
@@ -47,6 +49,7 @@ public final class CmdLine {
             modelFile = args[0];
             outputFile = args[1];
             numberOfRows = Integer.valueOf(args[2]);
+
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             System.out.println("ERROR! Invalid command line arguments, expecting: <scxml model file> "
                     + "<desired csv output file> <desired number of output rows>");
@@ -56,6 +59,7 @@ public final class CmdLine {
         FileInputStream model = null;
         try {
             model = new FileInputStream(modelFile);
+
         } catch (FileNotFoundException e) {
             System.out.println("ERROR! Model file not found");
             return;
@@ -68,12 +72,14 @@ public final class CmdLine {
         DataConsumer consumer = new DataConsumer();
         CSVFileWriter writer;
         try {
+            System.out.println("Creating csv object");
             writer = new CSVFileWriter(outputFile);
         } catch (IOException e) {
             System.out.println("ERROR! Can not write to output csv file");
             return;
         }
         consumer.addDataWriter(writer);
+
 
         DefaultDistributor dist = new DefaultDistributor();
         dist.setThreadCount(5);

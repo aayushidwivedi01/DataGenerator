@@ -56,6 +56,7 @@ public class DefaultDistributor implements SearchDistributor {
      * @return a reference to the current DefaultDistributor
      */
     public DefaultDistributor setMaxNumberOfLines(long numberOfLines) {
+        System.out.println("Setting no of lines");
         this.maxNumberOfLines = numberOfLines;
         return this;
     }
