@@ -65,7 +65,7 @@ public final class CmdLine {
         Engine engine = new SCXMLEngine(cte);
 
         //will default to samplemachine, but you could specify a different file if you choose to
-        InputStream is = CmdLine.class.getResourceAsStream("/" + (args.length == 0 ? "logRegMachine" : args[0]) + ".xml");
+        InputStream is = CmdLine.class.getResourceAsStream("/" + (args.length == 0 ? "samplemachine" : args[0]) + ".xml");
        // InputStream is = CmdLine.class.getResourceAsStream("/" + (args.length == 0 ? "sample" : args[0]) + ".xml");
 
         engine.setModelByInputFileStream(is);
@@ -81,15 +81,15 @@ public final class CmdLine {
         //MODEL USAGE EXAMPLE: <dg:assign name="var_out_V2" set="%regex([0-9]{3}[A-Z0-9]{5})"/>
         consumer.addDataTransformer(new EquivalenceClassTransformer());
 
-      // consumer.addDataWriter(new DefaultWriter(System.out,
-             // new String[]{"var_1_1", "var_1_2", "var_1_3", "var_1_4", "var_1_5", "var_1_6",
-                  //    "var_2_1", "var_2_2", "var_2_3", "var_2_4", "var_2_5", "var_2_6"}));
+       consumer.addDataWriter(new DefaultWriter(System.out,
+              new String[]{"var_1_1", "var_1_2", "var_1_3", "var_1_4", "var_1_5", "var_1_6",
+                    "var_2_1", "var_2_2", "var_2_3", "var_2_4", "var_2_5", "var_2_6"}));
 
        //consumer.addDataWriter(new DefaultWriter(System.out,
               //new String[]{ "var_out_V1", "var_out_V2","var_out_V3", "var_out_V4", "var_out_V5", "var_out_V7", "var_out_V8", "var_label"}));
 
-        consumer.addDataWriter(new DefaultWriter(System.out,
-                new String[]{ "var_out_V1","var_out_V2"}));
+        //consumer.addDataWriter(new DefaultWriter(System.out,
+         //       new String[]{ "var_out_V1","var_out_V2"}));
         //Prepare the distributor
         DefaultDistributor defaultDistributor = new DefaultDistributor();
         defaultDistributor.setThreadCount(1);
